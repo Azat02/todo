@@ -1,0 +1,43 @@
+.todo_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+div > .todo_wrapper:nth-child(odd){
+    background-color: silver;
+}
+
+.todo_wrapper > div {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.checkbox {
+    width: 15px;
+}
+
+.todo_title{
+    font-size: 15px;
+    margin-left: 20px;
+}
+
+.compleated{
+    text-decoration: line-through;
+}
+.edit {
+    border-radius: 8px;
+    margin-left: 190px;
+    width: 50px;
+    height: 37px;
+    cursor: pointer;
+}
+
+.del{
+    border-radius: 8px;
+    margin-left: 7px;
+    width: 50px;
+    height: 37px;
+    cursor: pointer;
+}
