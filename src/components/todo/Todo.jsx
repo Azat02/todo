@@ -1,19 +1,78 @@
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteTodo, onEditTodo, onStatusChange } from "../../redux/todoSlice";
 import css from "./todo.module.css";
 
 const Todo = (props) => {
 
-    
+    // const [x, setX] = useState(props.status);
+    const [editing, setEditing] = useState(false);
+    const [newTitle, setNewTitle] = useState(props.title);
+
+
+    // const handleEditing = () => {
+    //     setEditing(true);
+        
+    // };
+
+    const handleEditSubmit = () => {
+        setEditing(false);
+        props.editTodo(props.id, newTitle);
+    };
+
+    const [isEdit, setEdit] = useState(false);
+    const [inputValue, setInputValue] = useState(props.title);
+
+    const handleEdit = () => {
+        setEdit(!isEdit)
+    };
+
+    const handleInput = (e) => {
+        setInputValue(e.target.value);
+    }
+
+    const submit = (e) => {
+        e.preventDefault();
+        dispatch(onEditTodo({id: props.id, inputValue}))
+        setEdit(false)
+    }
+    const dispatch = useDispatch();
+    const handleDelete = () => {
+        dispatch( deleteTodo(props.id))
+    }
+
+    const handleChange = () => {
+        dispatch(onStatusChange(props.id))
+    }
     return (
-        <div>
+        <div className={css.silver}>
             <div className={css.todo_wrapper}>
                 <div>
-                    <input checked={props.status} type="checkbox" className={css.checkbox} />
-                    <p className={props.status ? css.compleated: ""}>{props.title}</p>
+                    {isEdit ? (<form onSubmit={submit}>
+                                    <input type="text" value={inputValue} onChange={handleInput} />
+                                    <button>Save</button>
+                               </form>) : (<label >
+                        <input checked={props.status} onChange={handleChange}  type="checkbox" className={css.checkbox} />
+                        <input
+                            type="text"
+                            onClick={() => setEditing(true)}
+                            value={editing ? newTitle : props.title}
+                            onChange={(event) => setNewTitle(event.target.value)}
+                            className={`${css.taskTitle} ${editing ? css.editing : ''} ${props.status ? css.compleated : ""}`}/>
+                    </label>)}
                 </div>
                 <div>
-                    <button className={css.edit}>Edit</button>
-                    <button className={css.del}>Del</button>
+                    {!editing && (
+                        <button onClick={handleEdit} className={css.edit}>
+                        Edit
+                        </button>
+                    )}
+                    {editing && (
+                        <button onClick={handleEditSubmit} className={css.edit}>
+                        Save
+                        </button>
+                    )}
+                    <button onClick={handleDelete} className={css.del}>Del</button>
                 </div>
             </div>
         </div>

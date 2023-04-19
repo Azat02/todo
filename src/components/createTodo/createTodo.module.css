@@ -6,6 +6,9 @@ input{
     border-radius: 5px 0 0 5px;
     padding-left: 15px;
 }
+input:focus{
+    outline: none;
+}
 
 button{
     height: 45px;
