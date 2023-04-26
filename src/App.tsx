@@ -11,7 +11,7 @@ import { TodoType } from './types';
 function App() {
   const todosArray = useSelector((state: RootState) => state.data)  
   const compleatTodos = todosArray.reduce((acc: number,item: TodoType) => acc + Number(item.status), 0);
-
+  // const test = false
 
   const newTodos = todosArray.map((item: TodoType) =>( <Todo id={item.id} {...item}/>));
   
