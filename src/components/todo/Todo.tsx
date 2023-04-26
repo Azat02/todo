@@ -1,9 +1,25 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTodo, onEditTodo, onStatusChange } from "../../redux/todoSlice";
+import { TodoType } from "../../types";
 import css from "./todo.module.css";
 
-const Todo = (props) => {
+
+type PropsType = TodoType & {
+    // testProps: number
+}
+
+    const Todo: FC<PropsType> = (props) => {
+    type TestStateT = <T> (a: T) => T
+    const useTestState: TestStateT = (a) => {
+        return a 
+    }
+
+    const res = useTestState<number>(25)
+    const res2 = useTestState<string>('hello')
+
+    console.log(res);
+    console.log(res2);
 
     // const [x, setX] = useState(props.status);
     const [editing, setEditing] = useState(false);
@@ -15,10 +31,10 @@ const Todo = (props) => {
         
     // };
 
-    const handleEditSubmit = () => {
-        setEditing(false);
-        props.editTodo(props.id, newTitle);
-    };
+    // const handleEditSubmit = () => {
+    //     setEditing(false);
+    //     props.editTodo(props.id, newTitle);
+    // };
 
     const [isEdit, setEdit] = useState(false);
     const [inputValue, setInputValue] = useState(props.title);
@@ -68,7 +84,7 @@ const Todo = (props) => {
                         </button>
                     )}
                     {editing && (
-                        <button onClick={handleEditSubmit} className={css.edit}>
+                        <button className={css.edit}>
                         Save
                         </button>
                     )}
@@ -77,8 +93,14 @@ const Todo = (props) => {
             </div>
         </div>
     )
-
-    
 }
 
 export default Todo;
+
+
+
+
+
+
+
+
